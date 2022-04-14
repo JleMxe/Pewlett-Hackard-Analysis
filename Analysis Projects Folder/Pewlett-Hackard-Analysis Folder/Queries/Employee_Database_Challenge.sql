@@ -49,3 +49,18 @@ on (ee.emp_no = ti.emp_no)
 WHERE (de.to_date = '9999-01-01')
 and (ee.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
 order by ti.emp_no asc;
+
+--Generate a count of titles table from mentorship_eligibility table
+select count(emp_no),title
+into mentorship_pool_title_counts
+from mentorship_eligibility
+group by (title)
+order by count(emp_no) desc;
+
+-- Generate a count of male and female employees
+select count(ee.gender), ee.gender
+into current_emp_gender
+from employees as ee
+inner join current_emp as ce
+on (ce.emp_no = ee.emp_no)
+group by ee.gender;
